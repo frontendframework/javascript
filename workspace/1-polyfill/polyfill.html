@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Responsive Web Desigin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<link rel="stylesheet" href="rwd.css" />
+
+	<script src="../libs/jquery/jquery-1.11.0.js"></script>
+
+	<script>
+		$(function () {
+			$(window).resize(function(){
+				var width=parseInt($(this).width())
+				$('#screenSize').text(width)
+			})
+		});
+	</script>
+	<!--css3 media query polyfill-->
+	<script src="../libs/respond/respond.src.js"></script>
+	<!--picture tag polyfill-->
+	<script src="../libs/respimage/respimage.js"></script>
+	<!-- html5 semantic tag polyfill-->
+	<script src="../libs/html5shiv/html5shiv.js"></script>
+	<!-- video polyfill -->
+	<script src="../libs/html5media/html5media.min.js"></script>
+
+
+</head>
+
+<body>
+	<p id="screenSize"></p>
+	<!-- html5shiv - start -->
+	<div class="tabBox">
+		<ul class="tabs">
+			<li class="selected"><a href="#">Tab One</a></li>
+			<li><a href="#">Tab Two</a></li>
+			<li><a href="#">Tab Three</a></li>
+		</ul>
+		<div class="content">
+			<section id="test">
+				<p> helloworld.. </p>
+			</section>
+		</div>
+	</div>
+	<div id="page">
+		<div class="entry">
+			<h3 class="nav">
+				<p>
+					<a href="#">About</a>
+				</p>
+				<p>
+					<a href="#">Photo</a>
+				</p>
+				<p>
+					<a href="#">Board</a>
+				</p>
+				<p>
+					<a href="#">schedule</a>
+				</p>
+			</h3>
+			<div class="content">
+				<div class="main">
+					<p>
+						<!-- picture
+						이미지 성능이슈.. 서버에서 각 디바이스를 위해 사이즈
+						다르게한 여러 이미지 준비
+						js에서 동적으로 처리하지 않고 html5 표준인 picture 태그로 해결
+						한꺼번에 여러개가 다운로드 되는게 아니라 그 조건에 맞는 것만 다운로드
+						최신의 크롬브라우저 정도 picture 태그 지원한다..현존하는 대부분의
+						브라우저에서 지원하지 않는다.. polyfill 고려해서...
+						-->
+						<picture>
+							<source srcset="suzy.jpg" media="(min-width:1001px)"/>
+							<source srcset="1000_suzy.jpg" media="(min-width:401px)"/>
+							<img src="400_suzy.jpg" id="testImage" />
+						</picture>
+					</p>
+					<p>
+						<video id="player1" width="540" height="303" controls="controls" preload="none">
+							<source type="video/mp4" src="kstyle.mp4" />
+							<source type="video/webm" src="kstyle.webmvp8.webm" />
+							<source type="video/ogg" src="kstyle.theora.ogv" />
+							<!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+							<object width="540" height="304" type="application/x-shockwave-flash" data="../libs/mediaelement/flashmediaelement.swf">
+								<param name="movie" value="../libs/mediaelement/flashmediaelement.swf" />
+								<param name="flashvars" value="controls=true&amp;file=../../1-polyfill/kstyle.mp4" /> <img src="kstyle.jpg" width="540" height="303" alt="No video playback capabilities" /> </object>
+						</video>
+					</p>
+
+				</div>
+				<div class="meta">
+					<p> 모든 <a href="#">Girl Group</a> 상세보기 </p>
+					<p> <a href="#">Kara</a>, <a href="#">MissA</a>, <a href="#">소녀시대</a>, <a href="#">시스타</a>, <a href="#">걸스데이</a>,
+						<a href="#">투에니원</a> </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

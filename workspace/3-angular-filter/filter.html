@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <title>Insert title here</title>
+    <script src="../libs/angular/angular.js">
+    </script>
+    <script>
+        var myApp = angular.module('myApp', []);
+        myApp.controller('oneController', function ($scope) {
+            $scope.developers = [{
+                name: "홍길동",
+                city: "서울"
+            }, {
+                name: "김길동",
+                city: "부산"
+            }, {
+                name: "박길동",
+                city: "인천"
+            }, {
+                name: "서길동",
+                city: "대전"
+            }];
+        });
+
+        myApp.filter('capitalize', function(){
+            //input : filter가 적용된 데이터..
+            //param : filter 뒤에 추가된 부가정보..
+            return function(input, param){
+                return input.substring(0,1).toUpperCase()+
+                    input.substring(1)
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+    <div ng-controller="oneController">
+        <ul>
+            <li ng-repeat="person in developers | orderBy:'name':'desc'">
+                {{person.name}} - {{person.city}}
+            </li>
+        </ul>
+        <input ng-model="search" type="text"/>
+        <ul>
+            <li ng-repeat="person in developers | filter:{'name':search}">
+                {{person.name}} - {{person.city}}
+            </li>
+        </ul>
+        <span>{{ "i am kkang" | capitalize}}</span>
+        <br/>
+        {{10000000 | number }}
+    </div>
+
+
+</body>
+
+</html>

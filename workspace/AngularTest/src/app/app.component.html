@@ -1,0 +1,32 @@
+<h3>I am Super Component</h3>
+<div>
+    <label>id: {{user.id}}</label>
+</div>
+<div>
+    <label>name: {{user.name}}</label>
+    <input [value]="user.name"/>
+    <!-- <input value="{{user.name}}"/>해도 된다..
+        <input [value]="~~"/>형식으로 등록하려면 value 라는 attribute가..
+        //이 태그에서 제공해 주던가.. 아니면 directive로 만들어 져 있어야 한다..
+        그래서 아래처럼은 불가능하다..
+        <div [user]="user">
+    -->
+</div>
+<div>
+    <label>phone: {{user.phone}}</label>
+    <input value="{{user.phone}}"/>
+</div>
+<div>
+    <label>email: {{user.email}}</label>
+    <input [(ngModel)]="user.email"/>
+</div>
+
+<app-sub></app-sub>
+
+<app-directive></app-directive>
+
+<app-injection></app-injection>
+
+<app-forms></app-forms>
+
+<router-outlet></router-outlet>

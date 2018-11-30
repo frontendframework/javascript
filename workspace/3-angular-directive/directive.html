@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+	<title>Insert title here</title>
+	<style>
+		.switch {
+			width: 180px;
+			border: 1px solid;
+			text-align: center;
+			font-weight: bold;
+			color: white;
+		}
+
+		.oncolor {
+			background: #00ff00;
+		}
+
+		.offcolor {
+			background: #ff0000;
+		}
+	</style>
+
+
+	<script src="../libs/angular/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+
+		myApp.controller('someController', function($scope){
+			console.log('someController...................')
+
+			$scope.name="kkang"
+			$scope.address="seoul"
+			$scope.email="a@a.com"
+			$scope.url="www.naver.com"
+			$scope.someFun=function(){
+				alert('i am someFun...')
+			}
+		})
+
+		myApp.directive('lifeCycleDirective', function(){
+			return {
+				template:'<a href="{{url}}">{{name}}</a><span ng-transclude/>',
+				restrict:'E',
+				replace:false,//directive가 적용된 view의 태그 제거?
+				//Attribute로 사용이 된다면 view 내부에서 태그 이용할수도..
+				transclude:true,//하위 내용 포함 시킬것인가????
+				scope:false,//view의 scope를 그대로 전달해 달라..
+				compile:function(element){
+					console.log('compile....'+element.html())
+					//사전에 dom 조작 작업을 목적으로 선언..
+					//controller가 실행되기 전에 호출됨으로 데이터(scope)는 
+					//전달되지 않는다.. 데이터와 상관없는 static한 dom 조작을 목적
+					element.append('<b>hello</b>')
+					return {
+						//compile 작업이 완료된후 controller 실행.. scope 데이터 
+						//발생된다.. 그 이후에 호출된다..
+						//데이터를 참조한 dom 조작작업을 목적으로 선언.. 
+						//필요 없으면 선언하지 않아도 된다..
+
+						//pre, post 두개의 함수를 정의해 놓을수 잇다. 모두 scope 전달
+						//모두 data 참조한 동적 dom 조작...
+						//둘중 하나만 선언해도 된다..
+
+						//directive가 적용된 하위내용(view개발자가 명시한..)
+						//이 포함되기 전이냐? 후이냐?
+						pre:function(scope, element){
+							console.log('pre.....'+scope.name+'...'+element.html())
+						},
+						post:function(scope, element){
+							console.log('post.....'+scope.name+'...'+element.html())
+							for(var i=0; i<scope.count; i++){
+								element.append('world')
+							}
+						}
+					}
+				},
+				link: function(scope, element){
+					//compile 작업후의 link 작업을 위해 명시하는데..
+					//만약 compile이 명시적으로 선언되었다면 호출되지 않는다.
+					//compile의 리턴에 있는 pre 축약형..
+					console.log('link........')
+				},
+				controller: function($scope){
+					//directive 가 목적으로 하는 것은 view이다.. 
+					//directive 에서 준비한 template 을 위한 업무로직을 위해
+					console.log('directive controller.......')
+					$scope.url="http://www.google.com"
+					$scope.name="google"
+					$scope.count="3"
+				}
+			}
+		})
+
+		myApp.directive('scopeDirective', function(){
+			return {
+				template:'name:{{data1}}, address:{{data2}}, email:{{data3}},'+
+					'url:{{data4}}, <a ng-click="myclick()">click</a>',
+				restrict:'E',
+				//false: view scope 그대로 전달
+				//true: view scope 상속.. 새로 생성 전달..
+				//{} : view scope와 전혀 상관없다..
+				//{} 로 끝낼수도 있지만.. 몇몇개의 데이터를 view에서 획득하기 위해서
+				//어떻게 획득해야 하는지 명시가능..
+				scope:{
+					data1:'@myUser',//view의 myUser attribute 값...
+					data2:'@',//view의 data2 attribute 값...
+					data3:'=',//view의 data3 attribute 값이 view scope의 변수명
+					//그 scope 값..
+					data4:'=myurl',
+					myclick:'&aaa'//함수.....
+				}
+			}
+		})
+
+	</script>
+</head>
+
+<body>
+
+	<div ng-controller="someController">
+		<life-cycle-directive>kkang</life-cycle-directive>
+		<br/>
+		<scope-directive my-user="{{name}}" data2="{{address}}" 
+			data3="email" myurl="url" aaa="someFun()"></scope-directive>
+	</div>
+
+
+</body>
+
+</html>

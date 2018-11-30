@@ -1,0 +1,55 @@
+<div class="container">
+  <div  [hidden]="submitted">
+    <h1>User Form</h1>
+    <!--add 
+    #userForm="ngForm" : userForm .. 개발자 임의 식별자.. 해당 form의 식별자를
+    //ngForm에 등록..
+    -->
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+        
+      <div class="form-group">
+        <label for="name">Name</label>
+        <!--add #name="ngModel" : name 개발자 임의 식별자. 해당 input을 식별-->
+        <input type="text" name="name" required [(ngModel)]="model.name"
+          #name="ngModel">
+        <!-- name 은 위에서 등록시킨 개발자 식별자이다..-->
+        <div [hidden]="name.valid || name.pristine">
+          name is required
+        </div>
+      </div>
+        
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <!--add -->
+        <input type="text" name="phone" [(ngModel)]="model.phone">
+      </div>
+        
+      <div class="form-group">
+        <label for="address">Address</label>
+        <!--add -->
+        <select name="address" required [(ngModel)]="model.address"
+          #address="ngModel">
+          <option *ngFor="let address of addresses" [value]="address">
+            {{address}}
+          </option>
+        </select>
+        <div [hidden]="address.valid || address.pristine">
+          address is required
+        </div>
+      </div>
+      <!--add -->
+      <button type="submit" [disabled]="!userForm.form.valid">submit</button>
+      <button type="button" (click)="newUser()">new user</button>
+    </form>
+  </div>
+    
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <!--add-->
+    <div>name:{{model.name}}</div>
+    <div>phone:{{model.phone}}</div>
+    <div>address:{{model.address}}</div>
+    <button (click)="submitted=false">Edit</button>
+  </div>
+</div>
+

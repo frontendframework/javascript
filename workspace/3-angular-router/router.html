@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <title>Insert title here</title>
+    <script src="../libs/angular/angular.js"></script>
+    <!--router는 angular-router.js 에서 별도로 제공...-->
+    <script src="../libs/angular/angular-route.js"></script>
+
+    <script>
+        var userdata;
+        //router는 angular-route.js에서 제공하는 module이다..
+        //html module에서 사용하려면 dependency 연결해서 사용해 주면 된다..
+        //module 선언하면서 등록하는 함수는 이 모듈의 config 블락...
+        //config 블락에 전달되는 $routeProvider(ngRoute에서 제공..)에게 
+        //hash 조건만 명시하면 된다..
+        var myModule=angular.module('myApp',['ngRoute'], function($routeProvider){
+            $routeProvider.when('/lists',{
+                template:'<ul><li ng-repeat="user in users">'+
+                    '<a href="#/lists/{{user.id}}">{{user.name}}</a></li></ul>',
+                controller:userController
+            })
+            $routeProvider.when('/lists/:userId',{
+                templateUrl:'template-detail.html',
+                controller:userDetailController
+            })
+            $routeProvider.when('/lists/:userId/aaa/:bbb*',{
+                template:'hello world',
+                controller: someController
+            })
+            $routeProvider.otherwise({
+                redirectTo:'/lists'
+            })
+
+        });
+
+        function userController($scope, $http){
+            $http({
+                method:'get',
+                url:'some.json'
+            }).success(function(data, status){
+                userdata=data;
+                $scope.users=userdata
+            })
+        }
+        function userDetailController($scope, $routeParams){
+            if(userdata==null){
+                //detail 에서 refresh 버튼 누른 상황 대응하기 위해서..
+                window.location.href="/3-angular-router/router.html"
+            }
+            $scope.user=userdata[$routeParams.userId]
+        }
+        function someController($scope, $routeParams){
+            alert($routeParams.userId+':'+$routeParams.bbb)
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>This is Router Test</h1>
+    <div>{{title}}</div>
+
+    <!-- router에 의해 결정된 view가 찍힐 위치...-->
+    <div ng-view></div>
+
+    <br />
+    <a href="#/lists/10/aaa/hello/world">some</a>
+    <br />
+
+
+
+</body>
+
+</html>

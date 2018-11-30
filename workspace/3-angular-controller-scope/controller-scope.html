@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- angular에서 분석하는 부분은 html 전체가 아니라.. ng-app이 선언되어 있는
+하위부분...html 태그에 달지 않아도 된다.. 보통 html 에 등록..-->
+<html ng-app>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <title>Insert title here</title>
+    <style>
+        .first {
+            background-color: #ff0000;
+        }
+
+        .last {
+            background-color: #0000ff;
+        }
+    </style>
+    <script src="../libs/angular/angular.js"></script>
+    <script>
+        //view를 위한 업무로직 추상화.. controller... 일반 함수로 만든다..
+        function userController($scope){
+            //$scope에 데이터를 담으면 view에서 binding 가능...
+            $scope.title='User Model Test'
+            $scope.users = [{
+                name:'kkang',
+                age:30
+            },{
+                name:'kim',
+                age: 20
+            }]
+            //scope에 함수도 등록가능.. view에서 호출가능..
+            $scope.getSize=function(){
+                return $scope.users.length
+            }
+        }
+        //controller의 매개변수는 DI 개념으로 대입됨으로 매개변수의 순서는
+        //중요하지 않고.. 변수명이 중요하다..
+        function productController($scope, $http){
+            $scope.title="Product Model Test"
+            //ajax...
+            $http({
+                method:'get',
+                url:'some.json'
+            }).success(function(data, status){
+                $scope.products=data;
+            })
+
+            $scope.addProduct=function(){
+                //scope의 변수는 view에서도 선언가능...
+                $scope.products.push({
+                   name: $scope.name,
+                   price: $scope.price 
+                })
+                //유저입력 지우기..
+                $scope.name=""
+                $scope.price=""
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div ng-controller="userController">
+        <h3>{{title}}</h3>
+        {{users[0].name}}<br/>
+        <ul>
+            <div ng-repeat="user in users">
+                <li>{{user.name}} - {{user.age}}</li>
+            </div>
+        </ul>
+        <br/>
+        <div>count:{{getSize()}}</div>
+    </div>
+
+    <div ng-controller="productController">
+        <h3>{{title}}</h3>
+        <ul>
+            <!-- $first, $last, $index는 ng-repeat의 내장객체...
+            $first가 true이면 first라는 css 바인딩...-->
+            <div ng-repeat="p in products">
+                <li ng-class="{first: $first==true, last: $last==true}">
+                    {{$index + 1}} - {{p.name}} - {{p.price}}
+                </li>
+            </div>
+        </ul>
+        <!-- ng-model : two way data binding... 알아서 유저 입력 데이터가
+        scope에 name 변수에 등록...-->
+        <input type="text" ng-model="name"/>
+        <input type="text" ng-model="price"/>
+        <button ng-click="addProduct()">add</button>
+    </div>
+
+</body>
+
+</html>
