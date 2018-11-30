@@ -1,0 +1,136 @@
+body {
+    background: white;
+}
+
+#page {
+    max-width: 100%;
+}
+
+p {
+    background: #fff;
+}
+
+h1 {
+    margin-left: 14.575%;
+    width: 70.85%;
+}
+
+.entry {
+    float: left;
+    width: 100%;
+}
+
+.entry h2 {
+    float: right;
+    width: 85.425%;
+}
+
+.entry .nav {
+    float: left;
+    width: 12.551%; /* 124px / 988px = .12551 */
+}
+
+.entry .content {
+    float: right;
+    width: 85.425%; /* 844px / 988px = 0.85425 */
+}
+
+.entry .main {
+    float: left;
+    width: 82.938%; /* 700px / 844px = 0.82938 */
+}
+
+.entry .meta {
+    float: right;
+    width: 14.692%; /* 124px / 844px = 0.14692 */
+}
+
+
+#testImage {
+    width: 100%;
+}
+
+.tabBox .tabs {
+    margin: 0;
+    padding: 0 10px;
+    overflow: hidden;
+    margin-bottom: -1px;
+    height: 2.25em;
+}
+
+.tabBox .tabs li {
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: .25em .25em 0;
+    height: 2em;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid #FFF;
+}
+
+.tabBox .tabs li.selected {
+    z-index: 3;
+}
+
+.tabBox .tabs a {
+    float: left;
+    height: 2em;
+    line-height: 2em;
+    -webkit-border-radius: 8px 8px 0 0;
+    -moz-border-radius: 8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
+    background: #EEE;
+    border: 1px solid #CCC;
+    border-bottom: 0;
+    padding: 0 10px;
+    color: #000;
+    text-decoration: none;
+
+}
+
+.tabBox .tabs .selected a {
+    background: #FFF;
+    -webkit-box-shadow: #CCC 0 0 .25em;
+    -moz-box-shadow: #CCC 0 0 .25em;
+    box-shadow: #CCC 0 0 .25em;
+}
+
+.tabBox .tabs a:hover {
+    background: -webkit-gradient(linear, 0 0, 0 70%, from(#EEF), to(#FFF));
+    background: -webkit-linear-gradient(#EEF, #FFF 70%);
+    background: -moz-linear-gradient(#EEF, #FFF 70%);
+    background: -ms-linear-gradient(#EEF, #FFF 70%);
+    background: -o-linear-gradient(#EEF, #FFF 70%);
+    background: linear-gradient(#EEF, #FFF 70%);
+    -pie-background: linear-gradient(#EEF, #FFF 70%);
+}
+
+.tabBox .content {
+    clear: left;
+    position: relative;
+    z-index: 2;
+    padding: 2em 1em;
+    border: 1px solid #CCC;
+    background: #FFF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: #CCC 0 0 .25em;
+    -moz-box-shadow: #CCC 0 0 .25em;
+    box-shadow: #CCC 0 0 .25em;
+}
+
+#test {
+	color:red;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+

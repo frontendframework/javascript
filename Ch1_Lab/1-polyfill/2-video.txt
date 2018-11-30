@@ -1,0 +1,4 @@
+<!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+                            <object width="540" height="304" type="application/x-shockwave-flash" data="../libs/mediaelement/flashmediaelement.swf">
+                                <param name="movie" value="../libs/mediaelement/flashmediaelement.swf" />
+                                <param name="flashvars" value="controls=true&amp;file=../../1-polyfill/kstyle.mp4" /> <img src="kstyle.jpg" width="540" height="303" alt="No video playback capabilities" /> </object>
